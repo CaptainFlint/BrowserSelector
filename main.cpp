@@ -71,6 +71,13 @@ int WINAPI wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, LPWSTR
 			return 1;
 		}
 	}
+	// Apply hacks: replacing HTTPS with HTTP for specified sites
+	const size_t MAX_PROTO_LEN = 16;
+	wchar_t proto[MAX_PROTO_LEN];
+	if ((wcsncmp(lpCmdLine, L"\"https", 5) == 0) && (GetPrivateProfileInt(L"AntiHttps", buf1, 0, iniFile) != 0))
+		wcscpy_s(proto, L"http");
+	else
+		wcsncpy_s(proto, lpCmdLine + 1, hostStart - lpCmdLine - 4);
 	// Get the executable for the chosen browser
 	res = GetPrivateProfileString(buf2, L"Browser", NULL, buf1, BUF_SIZE, iniFile);
 	if ((res == 0) || (buf1[0] == L'\0'))
@@ -83,7 +90,7 @@ int WINAPI wWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/, LPWSTR
 	PROCESS_INFORMATION pi = { 0 };
 	STARTUPINFO si = { 0 };
 	si.cb = sizeof(si);
-	wsprintf(buf2, L"\"%s\" %s", buf1, lpCmdLine);
+	wsprintf(buf2, L"\"%s\" \"%s://%s", buf1, proto, hostStart);
 	if (CreateProcess(NULL, buf2, NULL, NULL, FALSE, CREATE_UNICODE_ENVIRONMENT, NULL, NULL, &si, &pi) == 0)
 	{
 		wsprintf(buf1, L"Failed to start editor (%d)", GetLastError());
