@@ -1,0 +1,23 @@
+[General]
+DefaultBrowser=Opera
+[Hostnames]
+facebook.com=PaleMoon
+*.facebook.com=PaleMoon
+microsoft.com=PaleMoon
+*.microsoft.com=PaleMoon
+twitter.com=PaleMoon
+docs.google.com=Vivaldi
+drive.google.com=PaleMoon
+youtube.com=PaleMoon
+*.youtube.com=PaleMoon
+youtu.be=PaleMoon
+store.steampowered.com=Vivaldi
+steamcommunity.com=Vivaldi
+[Opera]
+Browser=c:\Program Files\Opera\opera.exe
+[Firefox]
+Browser=c:\Program Files\Mozilla Firefox\firefox.exe
+[PaleMoon]
+Browser=c:\Programs\PaleMoon\palemoon.exe
+[Vivaldi]
+Browser=c:\Programs\Vivaldi\Application\vivaldi.exe
